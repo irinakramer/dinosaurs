@@ -1,6 +1,5 @@
 // Fetch object data from JSON
 
-let dinos = [];
 function fetchDinoData() {
     fetch('./dino.json')
         .then(response => response.json())
@@ -12,9 +11,21 @@ function fetchDinoData() {
         .catch(error => console.log(error))
         .finally(() => { });
 }
-fetchDinoData();
 
 
+// IFFE to protect all variables  and run the program
+(function () {
+    let dinos = [];
+    window.addEventListener('load', async () => {
+        dinos = await fetchDinoData();
+    });
+    compareMeBtn = document.getElementById('btn');
+    compareMeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Btn clicked');
+        // compare me code here
+    })
+})();
 
 // Create Dino Constructor
 
