@@ -42,7 +42,17 @@ function Human(name, height, weight, diet) {
 }
 
 
-// Use IIFE to get human data from form
+// TODO: Use IIFE to get human data from form
+const human = function getHumanData() {
+    const name = document.getElementById('name').value;
+    const feet = parseFloat(document.getElementById('feet').value);
+    const inches = parseFloat(document.getElementById('inches').value);
+    const weight = parseFloat(document.getElementById('weight').value);
+    const diet = document.getElementById('diet').value;
+    const height = feet * 12 + inches;
+    //console.log(new Human(name, height, weight, diet));
+    return new Human(name, height, weight, diet);
+};
 
 
 // Create Dino Compare Method 1
@@ -78,5 +88,6 @@ function Human(name, height, weight, diet) {
         e.preventDefault();
         console.log('Btn clicked');
         // compare me code here
+        console.log(human());
     })
 })();
