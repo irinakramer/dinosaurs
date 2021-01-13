@@ -1,39 +1,46 @@
-// Fetch object data from JSON
+// Create Dino Constructor
+function Dino(species, weight, height, diet, where, when, fact) {
+    this.species = species;
+    this.weight = weight;
+    this.height = height;
+    this.diet = diet;
+    this.where = where;
+    this.when = when;
+    this.fact = fact;
+}
 
+// Create Dino Objects
+// Fetch object data from JSON
 function fetchDinoData() {
-    fetch('./dino.json')
+    let arr = [];
+    // returns a promise
+    return fetch('./dino.json')
         .then(response => response.json())
+        // array or Dino objects
         .then(data => {
-            dinos = data;
-            console.log(dinos);
-            return dinos;
+            arr = data.Dinos.map(
+                (item) =>
+                    new Dino(
+                        item.species,
+                        item.weight
+                    )
+            );
+            console.log(arr);
+            return arr;
         })
         .catch(error => console.log(error))
         .finally(() => { });
 }
 
 
-// IFFE to protect all variables  and run the program
-(function () {
-    let dinos = [];
-    window.addEventListener('load', async () => {
-        dinos = await fetchDinoData();
-    });
-    compareMeBtn = document.getElementById('btn');
-    compareMeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('Btn clicked');
-        // compare me code here
-    })
-})();
-
-// Create Dino Constructor
-
-
-// Create Dino Objects
-
-
 // Create Human Object
+function Human(name, height, weight, diet) {
+    this.name = name;
+    this.height = height;
+    this.weight = weight;
+    this.diet = diet;
+}
+
 
 // Use IIFE to get human data from form
 
@@ -58,3 +65,18 @@ function fetchDinoData() {
 
 
 // On button click, prepare and display infographic
+
+
+// IFFE to protect all variables  and run the program
+(function () {
+    let dinos = [];
+    window.addEventListener('load', async () => {
+        dinos = await fetchDinoData();
+    });
+    compareMeBtn = document.getElementById('btn');
+    compareMeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Btn clicked');
+        // compare me code here
+    })
+})();
