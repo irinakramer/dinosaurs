@@ -1,4 +1,4 @@
-# Object Oriented Javascript 
+# Dinosaurs
 
 ## Student Instructions
 
