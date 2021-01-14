@@ -171,70 +171,31 @@ function createGrid(dinos, human) {
 }
 
 
-// Remove form from screen
-function toggleForm() {
-    const form = document.getElementById('dino-compare');
-    const { display } = getComputedStyle(form);
-    if (display === 'none') {
-        form.style.display = 'block';
-    } else {
-        form.style.display = 'none';
-    }
-}
+async function compare(e) {
+    e.preventDefault();
+    // Remove form from screen
+    document.getElementById('dino-compare').style.display = 'none';
+    const dinos = await fetchDinoData();
+    console.log(dinos);
+    const human = getHumanData();
+    // create grid
+    createGrid(dinos, human);
 
-
-function toggleGrid() {
-    const grid = document.getElementById('grid');
-    const { display } = getComputedStyle(grid);
-    if (display === 'none') {
-        grid.style.display = 'flex';
-    } else {
-        grid.style.display = 'none';
-    }
-}
-
-function toggleRepeatBtn() {
-    const btn = document.getElementById('repeat-btn');
-    const { display } = getComputedStyle(btn);
-    if (display === 'none') {
-        btn.style.display = 'block';
-    } else {
-        btn.style.display = 'none';
-    }
 }
 
 function reset() {
-
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('repeat-btn').style.display = 'none';
+    document.getElementById('dino-compare').reset();
+    document.getElementById('dino-compare').style.display = 'block';
 }
 
 
 // On button click, prepare and display infographic
 // IFFE to protect all variables  and run the program
 (function () {
-    let dinos = [];
-    window.addEventListener('load', async () => {
-        dinos = await fetchDinoData();
-    });
     const compareMeBtn = document.getElementById('btn');
     const repeatBtn = document.getElementById('repeat-btn');
-    compareMeBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggleForm();
-        console.log('Btn clicked');
-        // get human data from form
-        const human = getHumanData();
-        console.log(dinos);
-
-        // create grid
-        createGrid(dinos, human);
-    });
-    repeatBtn.addEventListener('click', () => {
-        //e.preventDefault();
-        console.log("repeatBtn clicked");
-        document.getElementById('grid').innerHTML = '';
-        repeatBtn.style.display = 'none';
-        document.getElementById('dino-compare').style.display = 'block';
-
-    });
-
+    compareMeBtn.addEventListener('click', compare);
+    repeatBtn.addEventListener('click', reset);
 })();
