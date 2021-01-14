@@ -62,13 +62,14 @@ function getHumanData() {
 // Create Dino Compare Method 1
 // NOTE: Weight in JSON file is in lbs, height in inches. 
 Dino.prototype.compareWeight = function (human) {
+    const weightRatio = (this.weight / human.weight).toFixed(1);
     if (this.species === 'Pigeon') {
         return;
-    } else if (this.weight > human.weight) {
-        return `${this.species} weights ${this.weight - human.weight} pounds more than you.`;
-    } else if (this.weight < human.weight) {
+    } else if (weightRatio > 1) {
+        return `${this.species} weights ${weightRatio} times more than you.`;
+    } else if (weightRatio < 1) {
         return `You weigh ${human.weight - this.weight} pounds more than ${this.species}.`;
-    } else if (this.weight === human.weight) {
+    } else if (weightRatio === 1) {
         return `You weigh the same as ${this.species}.`;
     }
 };
@@ -77,13 +78,14 @@ Dino.prototype.compareWeight = function (human) {
 // Create Dino Compare Method 2
 // NOTE: Weight in JSON file is in lbs, height in inches.
 Dino.prototype.compareHeight = function (human) {
+    const heightRatio = (this.height / human.height).toFixed(1);
     if (this.species === 'Pigeon') {
         return;
-    } else if (this.height > human.height) {
-        return `${this.species} is ${this.height - human.height} inches taller than you.`;
-    } else if (this.height < human.height) {
+    } else if (heightRatio > 1) {
+        return `${this.species} is ${heightRatio} times taller than you.`;
+    } else if (heightRatio < 1) {
         return `You are ${human.height - this.height} inches taller than ${this.species}.`;
-    } else if (this.height === human.height) {
+    } else if (heightRatio === 1) {
         return `You are the same height as ${this.species}.`;
     }
 };
