@@ -30,7 +30,6 @@ function fetchDinoData() {
                         item.fact
                     )
             );
-            console.log(arr);
             return arr;
         })
         .catch(error => console.log(error))
@@ -113,7 +112,6 @@ function createDinoTile(dino, human) {
     // For the rest random number 1 through 5
 
     const randomNum = dino.species === 'Pigeon' ? 0 : Math.round(Math.random() * 5);
-    console.log("createDinoTile", dino);
 
     switch (randomNum) {
         case 0:
@@ -176,7 +174,6 @@ async function compare(e) {
     // Remove form from screen
     document.getElementById('dino-compare').style.display = 'none';
     const dinos = await fetchDinoData();
-    console.log(dinos);
     const human = getHumanData();
     // form validation
     if (human.name === "") {
