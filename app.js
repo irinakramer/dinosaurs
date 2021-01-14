@@ -59,7 +59,6 @@ function getHumanData() {
 };
 
 
-
 // Create Dino Compare Method 1
 // NOTE: Weight in JSON file is in lbs, height in inches. 
 Dino.prototype.compareWeight = function (human) {
@@ -170,7 +169,6 @@ function createGrid(dinos, human) {
     repeatBtn.style.display = 'block';
 }
 
-
 async function compare(e) {
     e.preventDefault();
     // Remove form from screen
@@ -178,6 +176,21 @@ async function compare(e) {
     const dinos = await fetchDinoData();
     console.log(dinos);
     const human = getHumanData();
+    // form validation
+    if (human.name === "") {
+        alert("Please enter name.");
+        reset();
+        return;
+    } else if (human.height < 1) {
+        alert("Please enter number greater than 0.");
+        reset();
+        return;
+    } else if (human.weight < 1) {
+        alert("Please enter number greater than 0.");
+        reset();
+        return;
+    }
+
     // create grid
     createGrid(dinos, human);
 
@@ -192,7 +205,7 @@ function reset() {
 
 
 // On button click, prepare and display infographic
-// IFFE to protect all variables  and run the program
+// IFFE to protect all variables and run the program
 (function () {
     const compareMeBtn = document.getElementById('btn');
     const repeatBtn = document.getElementById('repeat-btn');
