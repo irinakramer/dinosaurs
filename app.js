@@ -1,4 +1,14 @@
-// Create Dino Constructor
+/**
+* @description Represents a Dino
+* @constructor
+* @param {string} species
+* @param {number} weight
+* @param {number} height
+* @param {string} diet
+* @param {string} where
+* @param {string} when
+* @param {string} fact
+*/
 function Dino(species, weight, height, diet, where, when, fact) {
     this.species = species;
     this.weight = weight;
@@ -9,8 +19,11 @@ function Dino(species, weight, height, diet, where, when, fact) {
     this.fact = fact;
 };
 
-// Create Dino Objects
-// Fetch object data from JSON
+
+/**
+* @description Fetch object data from dino.json
+* @returns {Promise} Promise array of Dino objects
+*/
 function fetchDinoData() {
     let arr = [];
     // returns a promise
@@ -37,7 +50,14 @@ function fetchDinoData() {
 };
 
 
-// Create Human Object
+/**
+* @description Represents a Human
+* @constructor
+* @param {string} name
+* @param {number} height
+* @param {number} weight
+* @param {string} diet
+*/
 function Human(name, height, weight, diet) {
     this.name = name;
     this.height = height;
@@ -46,7 +66,10 @@ function Human(name, height, weight, diet) {
 };
 
 
-// Get human data from form
+/**
+* @description Get human data from form
+* @returns {object} new Human object with user data
+*/
 function getHumanData() {
     const name = document.getElementById('name').value;
     const feet = parseFloat(document.getElementById('feet').value);
@@ -58,8 +81,12 @@ function getHumanData() {
 };
 
 
-// Create Dino Compare Method 1
-// NOTE: Weight in JSON file is in lbs, height in inches. 
+/**
+* @description Compare weight of Dino and Human (in lbs)
+* @constructor prototype method
+* @param {object} human
+* @returns {string} fact with comparison properties
+*/
 Dino.prototype.compareWeight = function (human) {
     const weightRatio = (this.weight / human.weight).toFixed(1);
     if (this.species === 'Pigeon') {
@@ -74,8 +101,12 @@ Dino.prototype.compareWeight = function (human) {
 };
 
 
-// Create Dino Compare Method 2
-// NOTE: Weight in JSON file is in lbs, height in inches.
+/**
+* @description Compare height of Dino and Human (in inches)
+* @constructor prototype method
+* @param {object} human
+* @returns {string} fact with comparison properties
+*/
 Dino.prototype.compareHeight = function (human) {
     const heightRatio = (this.height / human.height).toFixed(1);
     if (this.species === 'Pigeon') {
@@ -89,8 +120,13 @@ Dino.prototype.compareHeight = function (human) {
     }
 };
 
-// Create Dino Compare Method 3
-// NOTE: Weight in JSON file is in lbs, height in inches.
+
+/**
+* @description Compare diet of Dino and Human (in inches)
+* @constructor prototype method
+* @param {object} human
+* @returns {string} fact with comparison properties
+*/
 Dino.prototype.compareDiet = function (human) {
     if (this.species === 'Pigeon') {
         return;
@@ -102,8 +138,12 @@ Dino.prototype.compareDiet = function (human) {
 };
 
 
-
-// Generate Tiles for each Dino in Array
+/**
+* @description Generate Tiles for Dino
+* @param {object} dino
+* @param {object} human
+* @returns {Element} HTML div element
+*/
 function createDinoTile(dino, human) {
     let randomFact;
 
@@ -144,6 +184,12 @@ function createDinoTile(dino, human) {
     return div;
 }
 
+
+/**
+* @description Generate Tile for Human
+* @param {object} human
+* @returns {Element} HTML div element
+*/
 function createHumanTile(human) {
     const div = document.createElement('div');
     div.className = ('grid-item');
@@ -152,9 +198,15 @@ function createHumanTile(human) {
     return div;
 }
 
-// Add tiles to DOM
+
+/**
+* @description Create grid and add to DOM
+* @param {Array} dinos
+* @param {object} human
+*/
 function createGrid(dinos, human) {
     let grid = document.getElementById('grid');
+    // Iterate through dino array to generate each tile
     dinos.forEach((dino, index) => {
         if (index === 4) {
             let gridItemHuman = createHumanTile(human);
@@ -169,6 +221,13 @@ function createGrid(dinos, human) {
     repeatBtn.style.display = 'block';
 }
 
+
+/**
+* @description  Callback for Compare form click event,
+                on button click, prepare and display infographic,
+                includes validation
+* @param {object} e - event object
+*/
 async function compare(e) {
     e.preventDefault();
     // Remove form from screen
@@ -192,9 +251,13 @@ async function compare(e) {
 
     // create grid
     createGrid(dinos, human);
-
 }
 
+
+/**
+* @description  Callback for repeat button click event,
+                resets all page elements to initial state
+*/
 function reset() {
     document.getElementById('grid').innerHTML = '';
     document.getElementById('repeat-btn').style.display = 'none';
@@ -203,8 +266,9 @@ function reset() {
 }
 
 
-// On button click, prepare and display infographic
-// IFFE to protect all variables and run the program
+/**
+* @description IFFE to protect all variables and run the program
+*/
 (function () {
     const compareMeBtn = document.getElementById('btn');
     const repeatBtn = document.getElementById('repeat-btn');
