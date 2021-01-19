@@ -206,15 +206,19 @@ function createHumanTile(human) {
 */
 function createGrid(dinos, human) {
     let grid = document.getElementById('grid');
+    let fragment = new DocumentFragment(); // var to store tiles
+
     // Iterate through dino array to generate each tile
     dinos.forEach((dino, index) => {
         if (index === 4) {
             let gridItemHuman = createHumanTile(human);
-            grid.append(gridItemHuman);
+            fragment.append(gridItemHuman);
         }
         const gridItem = createDinoTile(dino, human);
-        grid.append(gridItem);
+        fragment.append(gridItem);
     });
+
+    grid.append(fragment);
 
     // add repeat btn
     const repeatBtn = document.getElementById('repeat-btn');
